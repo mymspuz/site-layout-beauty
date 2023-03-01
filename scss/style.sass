@@ -1,0 +1,334 @@
+@import 'reset'
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap')
+
+$primary: #66C05D
+$secondary: #EFEFEF
+$light-grey: #E5E5E5
+$light-middle-grey: #C4C4C4
+$dark-grey: #828282
+
+$width-container: 1110px
+$size-banner: 584px
+
+%tmpl-flex-center
+  display: flex
+  justify-content: center
+  align-items: center
+
+%tmpl-flex-between
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+@mixin btn($b-color, $t-color)
+  @extend %tmpl-flex-center
+  max-width: 170px
+  padding: 12px 26px
+  color: $t-color
+  font-size: 14px
+  line-height: 16px
+  background-color: transparent
+  cursor: pointer
+  border: 2px solid $b-color
+  border-radius: 40px
+
+@mixin menu-item($t-color, $margin, $fz)
+  list-style: none
+  margin: 0 $margin
+  &:first-child
+    margin-left: 0
+  &:last-child
+    margin-right: 0
+  & a
+    color: $t-color
+    font-size: $fz
+
+@mixin feedback($f-basis)
+  .feedback
+    flex-basis: $f-basis
+    @media only screen and (max-width: 1280px)
+      flex-basis: auto
+    display: flex
+    justify-content: end
+    align-items: center
+    span
+      font-size: 16px
+    button
+      margin-left: 40px
+
+@mixin circle($top, $left, $transparent)
+  content: ''
+  display: block
+  position: absolute
+  top: -$top
+  left: -$left
+  z-index: -2
+  height: $size-banner + ($top * 2)
+  width: $size-banner + ($top * 2)
+  background-color: rgba(255, 255, 255, $transparent)
+  border-radius: 50%
+
+body, html
+  font-family: 'Roboto', sans-serif
+  font-weight: 400
+  display: flex
+  flex-direction: column
+
+header
+  width: 100%
+  display: flex
+  flex-direction: column
+
+main
+  background-color: $secondary
+
+a
+  text-decoration: none
+
+.btn-back-call
+  @include btn($primary, black)
+  @media only screen and (max-width: 1024px)
+    padding: 10px 15px
+
+.menu-wrapper
+  margin: 0 auto
+  @extend %tmpl-flex-center
+
+.container
+  width: $width-container
+  height: 100%
+  margin: 0 auto
+  @media only screen and (max-width: 1600px)
+    width: $width-container
+  @media only screen and (max-width: 1280px)
+    width: $width-container - 110
+  @media only screen and (max-width: 1024px)
+    width: $width-container - 210
+
+// HEADER
+.header-menu
+  width: 100%
+  height: 50px
+  background-color: $light-grey
+  display: flex
+  &__item
+    @include menu-item(#333333, 15px, 14px)
+
+.logo-feedback-wrapper
+  height: 120px
+  @extend %tmpl-flex-between
+  .logo
+    flex-basis: 50%
+    display: flex
+    justify-content: start
+    align-items: center
+    &__name
+      margin-left: 20px
+      font-weight: 700
+      font-size: 36px
+      color: $primary
+  @include feedback(50%)
+
+.catalog-menu
+  @extend %tmpl-flex-center
+  border-top: 1px solid $secondary
+  height: 79px
+  .container
+    display: flex
+  &__item
+    @include menu-item(black, 20px, 16px)
+
+.main-banner
+  width: 100%
+  height: 604px
+  position: relative
+  background-color: $primary
+  overflow: hidden
+  &__wrapper
+    display: flex
+    align-items: center
+    height: 100%
+  &__img-box
+      max-width: $size-banner
+      max-height: $size-banner
+      position: relative
+      z-index: 5
+      margin-left: 100px
+      @media only screen and (max-width: 1440px)
+        margin-left: 30px
+        max-width: $size-banner - 20
+        max-height: $size-banner - 20
+      @media only screen and (max-width: 1280px)
+        margin-left: 10px
+        max-width: $size-banner - 50
+        max-height: $size-banner - 50
+  &__img-box:after
+    @include circle(138px, 90px, 0.3)
+  &__img-box:before
+    @include circle(47px, 0px, 0.4)
+  &__desc
+    display: flex
+    flex-direction: column
+    color: white
+  &__title
+    font-weight: 700
+    font-size: 48px
+  &__promotion
+    font-weight: 400
+    font-size: 14px
+    line-height: 20px
+    margin: 50px 0
+  &__btn
+    @include btn(white, white)
+    text-decoration: none
+
+// CONTENT
+.special-offers
+  margin: 70px 0 100px
+  &__title
+    margin-bottom: 38px
+    font-weight: 700
+    font-size: 24px
+    line-height: 28px
+    color: black
+  &__icon
+    margin-right: 45px
+  &__content
+    @extend %tmpl-flex-between
+    flex-wrap: wrap
+
+.product-card
+  max-width: 255px
+  @extend %tmpl-flex-center
+  flex-direction: column
+  background-color: white
+  &__wrapper
+    margin: 15px 0
+    @extend %tmpl-flex-center
+    flex-basis: 25%
+    @media only screen and (max-width: 1280px)
+      flex-basis: 50%
+  img
+    margin: 25px 0 20px
+    width: 125px
+  &__title
+    font-weight: 400
+    font-size: 14px
+    line-height: 16px
+    margin: 0 30px 20px
+    text-align: center
+  &__price
+    font-weight: 500
+    font-size: 21px
+    line-height: 25px
+  &__btn
+    margin: 20px 63px 25px 63px
+    padding: 9px 40px
+    background-color: $primary
+    border: none
+    border-radius: 30px
+    color: white
+    font-size: 14px
+    line-height: 16px
+    letter-spacing: 0.05em
+    text-align: center
+    cursor: pointer
+
+.bonus-map
+  @extend %tmpl-flex-between
+  flex-wrap: wrap
+  margin-bottom: 132px
+  @media only screen and (max-width: 1280px)
+    margin-bottom: 80px
+    justify-content: center
+  &__card
+    padding: 35px 45px 35px 40px
+    background-color: $primary
+    min-width: 540px
+    max-height: 212px
+    margin: 15px 0
+  .bonus-map-card
+    @extend %tmpl-flex-between
+    &__content
+      display: flex
+      flex-direction: column
+      color: white
+    &__title
+      font-weight: 700
+      font-size: 18px
+    &__desc
+      margin: 25px 0
+      font-weight: 400
+      font-size: 14px
+      line-height: 20px
+    &__btn
+      background-color: transparent
+      border: 2px solid white
+      border-radius: 30px
+      padding: 8px 25px
+      max-width: 170px
+      font-weight: 400
+      font-size: 14px
+      line-height: 14px
+      text-align: center
+      text-decoration: none
+      color: white
+    input
+      color: $light-middle-grey
+      background-color: white
+      border: none
+      border-radius: 30px
+      padding: 9px 25px
+      font-weight: 400
+      font-size: 14px
+      line-height: 16px
+
+// FOOTER
+footer
+  width: 100%
+  .footer__content
+    height: 120px
+    background-color: white
+    display: flex
+    @media only screen and (max-width: 1280px)
+      height: 120px * 2
+
+    .container
+      @extend %tmpl-flex-between
+      @media only screen and (max-width: 1280px)
+        justify-content: space-evenly
+        flex-direction: column-reverse
+      .footer__social
+        @extend %tmpl-flex-between
+        & a
+          display: inline-block
+          margin-right: 20px
+          &:last-child
+            margin-right: 0
+        & img
+          display: inline-block
+          width: 45px
+          height: 45px
+          border: 2px solid $primary
+          border-radius: 50%
+          padding: 10px
+          overflow: visible
+      .footer__address
+        flex-basis: 35%
+        text-align: end
+        @media only screen and (max-width: 1280px)
+          flex-basis: auto
+      @include feedback(33.33%)
+  .footer__copyright
+    height: 65px
+    background-color: $secondary
+    display: flex
+    font-weight: 400
+    font-size: 12px
+    line-height: 14px
+    color: $dark-grey
+    .container
+      @extend %tmpl-flex-between
+      .privacy-policy
+        text-decoration: none
+        color: inherit
